@@ -20,14 +20,12 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 @State(Scope.Thread)
 @BenchmarkMode({Mode.AverageTime})
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-public class ListGet {
+public class ListDelete {
 
   int LOOP_COUNT = 1000;
   List<Integer> arrayList;
   LinkedList<Integer> linkedList;
   List<Integer> vector;
-
-  int result = 0;
 
   @Setup
   public void setUp() {
@@ -42,36 +40,56 @@ public class ListGet {
   }
 
   @Benchmark
-  public void getArrayList() {
+  public void removeArrayListFromFirst() {
+    ArrayList<Integer> tempList = new ArrayList<>(arrayList);
     for (int loop = 0; loop < LOOP_COUNT; loop++) {
-      result = arrayList.get(loop);
-    }
-  }
-
-/*  @Benchmark
-  public void getLinkedList() {
-    for (int loop = 0; loop < LOOP_COUNT; loop++) {
-      result = linkedList.get(loop);
-    }
-  }*/
-
-  @Benchmark
-  public void peekLinkedList(){
-    for (int loop = 0; loop < LOOP_COUNT; loop++) {
-      result = linkedList.peek();
+      tempList.remove(0);
     }
   }
 
   @Benchmark
-  public void getVector() {
+  public void removeLinkedListFromFirst(){
+    LinkedList<Integer> tempList = new LinkedList<>(linkedList);
     for (int loop = 0; loop < LOOP_COUNT; loop++) {
-      result = vector.get(loop);
+      tempList.remove(0);
+    }
+  }
+
+  @Benchmark
+  public void removeVectorFromFirst() {
+    Vector<Integer> tempList = new Vector<>(vector);
+    for (int loop = 0; loop < LOOP_COUNT; loop++) {
+      tempList.remove(0);
+    }
+  }
+
+  @Benchmark
+  public void removeArrayListFromLast() {
+    ArrayList<Integer> tempList = new ArrayList<>(arrayList);
+    for (int loop = LOOP_COUNT-1; loop >=0; loop--) {
+      tempList.remove(loop);
+    }
+  }
+
+  @Benchmark
+  public void removeLinkedListFromLast(){
+    LinkedList<Integer> tempList = new LinkedList<>(linkedList);
+    for (int loop = 0; loop < LOOP_COUNT; loop++) {
+      tempList.removeLast();
+    }
+  }
+
+  @Benchmark
+  public void removeVectorFromLast() {
+    Vector<Integer> tempList = new Vector<>(vector);
+    for (int loop = LOOP_COUNT-1; loop >=0; loop--) {
+      tempList.remove(loop);
     }
   }
 
   public static void main(String[] args) throws RunnerException {
     Options options = new OptionsBuilder()
-        .include(ListGet.class.getSimpleName())
+        .include(ListDelete.class.getSimpleName())
         .warmupIterations(3)           // 사전 테스트 횟수
         .measurementIterations(3)      // 실제 측정 횟수
         .forks(1)                       //
