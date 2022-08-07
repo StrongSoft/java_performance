@@ -1,94 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.7.2</version>
-    <relativePath/> <!-- lookup parent from repository -->
-  </parent>
-  <groupId>com.regur</groupId>
   <artifactId>java_performance</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>java_performance</name>
-  <description>Demo project for Spring Boot</description>
-  <properties>
-    <java.version>15</java.version>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-core</artifactId>
-      <version>1.35</version>
-    </dependency><!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
-    <dependency>
-      <groupId>org.openjdk.jmh</groupId>
-      <artifactId>jmh-generator-annprocess</artifactId>
-      <version>1.35</version>
-      <scope>test</scope>
-    </dependency>
-
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-test</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <groupId>org.springframework.boot</groupId>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
           <annotationProcessorPaths>
             <path>
-              <groupId>org.openjdk.jmh</groupId>
               <artifactId>jmh-generator-annprocess</artifactId>
+              <groupId>org.openjdk.jmh</groupId>
               <version>1.35</version>
             </path>
           </annotationProcessorPaths>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
+        <groupId>org.apache.maven.plugins</groupId>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <executions>
           <execution>
-            <id>run-benchmarks</id>
-            <phase>integration-test</phase>
+            <configuration>
+              <arguments>
+                <argument>-classpath</argument>
+                <argument>org.openjdk.jmh.Main</argument>
+                <argument>.*</argument>
+                <classpath/>
+              </arguments>
+              <classpathScope>test</classpathScope>
+              <executable>java</executable>
+            </configuration>
             <goals>
               <goal>exec</goal>
             </goals>
-            <configuration>
-              <classpathScope>test</classpathScope>
-              <executable>java</executable>
-              <arguments>
-                <argument>-classpath</argument>
-                <classpath />
-                <argument>org.openjdk.jmh.Main</argument>
-                <argument>.*</argument>
-              </arguments>
-            </configuration>
+            <id>run-benchmarks</id>
+            <phase>integration-test</phase>
           </execution>
         </executions>
+        <groupId>org.codehaus.mojo</groupId>
       </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core -->
+    <dependency>
+      <artifactId>jmh-core</artifactId>
+      <groupId>org.openjdk.jmh</groupId>
+      <version>1.35</version>
+    </dependency><!-- https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess -->
+    <dependency>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <groupId>org.openjdk.jmh</groupId>
+      <scope>test</scope>
+      <version>1.35</version>
+    </dependency>
+
+
+    <dependency>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <description>Demo project for Spring Boot</description>
+  <groupId>com.regur</groupId>
+  <modelVersion>4.0.0</modelVersion>
+  <name>java_performance</name>
+  <parent>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <relativePath/>
+    <version>2.7.2</version> <!-- lookup parent from repository -->
+  </parent>
+  <properties>
+    <java.version>15</java.version>
+  </properties>
+
+  <version>0.0.1-SNAPSHOT</version>
 
 
 </project>
